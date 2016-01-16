@@ -8,10 +8,10 @@ export default Ember.Route.extend({
       Ember.$.post(window.location.pathname + 'api/auth', {
         password: password
       }).done(() => {
+        window.sessionStorage.setItem('password', password);
         this.controllerFor('login').set('loading', false);
         this.controllerFor('application').set('login', true);
         this.transitionTo('index');
-        window.sessionStorage.setItem('password', password);
       }).fail(() => {
         this.controllerFor('login').set('loading', false);
         this.controllerFor('login').set('failed', true);
