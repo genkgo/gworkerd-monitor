@@ -4,9 +4,9 @@
     </header>
     <nav class="main--navigation">
         {{#link-to 'index' class="dashboard"}}<span>Dashboard</span>{{/link-to}}
-        {{#link-to 'jobs' (query-params status="successful") class="successful"}}<span>Processed</span>{{/link-to}}
-        {{#link-to 'jobs' (query-params status="failed") class="failed"}}<span>Failed</span>{{/link-to}}
-        {{#link-to 'jobs' (query-params status="busy") class="busy"}}<span>Busy</span>{{/link-to}}
+        {{#link-to 'jobs' (query-params readyState="successful") class="successful"}}<span>Processed</span>{{/link-to}}
+        {{#link-to 'jobs' (query-params readyState="failed") class="failed"}}<span>Failed</span>{{/link-to}}
+        {{#link-to 'jobs' (query-params readyState="busy") class="busy"}}<span>Busy</span>{{/link-to}}
     </nav>
     <main>
         <div class="status--output">

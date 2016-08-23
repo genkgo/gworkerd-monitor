@@ -1,23 +1,21 @@
 import Ember from 'ember';
+import ENV from 'gworkerd/config/environment';
 
 export default Ember.Route.extend({
+  jobLimit : ENV.APP.initialJobLimit,
+
   queryParams: {
-    status: {
+    readyState: {
       refreshModel: true
     }
   },
 
   model: function (params) {
-    if (params['status']) {
-      var status = params['status'];
-      return this.store.filter('job', {
-        'readyState': status
-      }, function (job) {
-        return job.get('readyState') === status;
-      });
+    if (params['readyState']) {
+      return this.store.peekAll('job').filter((job) => job.get('readyState') === params['readyState']);
     } else {
-      return this.store.filter('job', function () {
-        return true;
+      return this.store.query('job', {
+        limit: this.get('jobLimit')
       });
     }
   }

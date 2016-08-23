@@ -23,7 +23,7 @@ module.exports = function(environment) {
 
   ENV.contentSecurityPolicy = {
     'script-src': "'self' 'unsafe-eval'",
-    'img-src': "'self'",
+    'img-src': "'self' https:",
     'font-src': "'self' https://fonts.googleapis.com https://fonts.gstatic.com",
     'style-src': "'self' https://fonts.googleapis.com",
     'connect-src': "'self' ws://localhost:4200 localhost:4200"

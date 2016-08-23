@@ -43,7 +43,21 @@ module.exports = function(app, wss) {
       if (index === "limit") {
         continue;
       }
-      filtered = filtered.filterBy(index, req.query[index]);
+
+      if (index === "readyState") {
+        filtered = filtered.filter(function (job) {
+          if (job['status'] === 0 && req.query[index] === 'successful') {
+            return true;
+          }
+          if (job['status'] === null && req.query[index] === 'busy') {
+            return true;
+          }
+          if (job['status'] > 0 && req.query[index] === 'failed') {
+            return true;
+          }
+          return false;
+        });
+      }
     }
 
     if (req.query["limit"]) {
@@ -114,8 +128,8 @@ module.exports = function(app, wss) {
       runningJob.status = Math.random() < 0.5 ? 0 : 1;
       runningJob.finishedAt = new Date();
       eventEmitter.emit('jobFinished', runningJob);
-    }, 3000);
-  }, 2000);
+    }, 30000);
+  }, 10000);
 
   wss.on('connection', function (wss) {
     var sendUpdate = function (job) {

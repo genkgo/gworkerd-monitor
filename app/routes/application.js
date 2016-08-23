@@ -25,13 +25,5 @@ export default Ember.Route.extend({
         appController.set('server', server);
       });
     }
-  },
-
-  actions : {
-    jobUpdate : function (job) {
-      this.store.pushPayload({
-        jobs: [job]
-      });
-    }
   }
 });
